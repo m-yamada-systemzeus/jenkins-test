@@ -6,7 +6,7 @@ spec:
   # コンテナ定義
   containers:
     - name: nginx-container
-      image: zeusmyamada/jenkins-test
+      image: zeusmyamada/jenkins-test:latest
       ports:
         - containerPort: 80
 ---
