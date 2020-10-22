@@ -20,4 +20,6 @@ spec:
     app: nginx-container
   ports:
     - port: 80
+      targetPort: 80
+      nodePort: 8080
   type: NodePort
