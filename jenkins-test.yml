@@ -1,14 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: jenkins-test
+  name: nginx
 spec:
-  # コンテナ定義
-  containers:
-    - name: nginx-container
-      image: zeusmyamada/jenkins-test:latest
-      ports:
-        - containerPort: 80
+    selector:
+      matchLabels:
+        app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      # コンテナ定義
+      containers:
+        - name: nginx
+          image: zeusmyamada/jenkins-test:latest
+          ports:
+            - containerPort: 80
 ---
 # Service(NodePort)の作成
 apiVersion: v1
@@ -17,9 +25,7 @@ metadata:
   name: nginx-np
 spec:
   selector:
-    app: nginx-container
+    app: nginx
   ports:
     - port: 80
-      targetPort: 80
-      nodePort: 30000
   type: NodePort
